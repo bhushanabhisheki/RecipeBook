@@ -6,7 +6,6 @@ import { ShoppingListService } from './shopping-list.service';
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.scss'],
-  providers: [ShoppingListService],
 })
 export class ShoppingListComponent implements OnInit {
   ingridients: Ingridient[] = [];
