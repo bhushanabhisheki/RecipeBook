@@ -4,6 +4,7 @@ import { Ingridient } from '../shared/model/ingridient.model';
 
 export class ShoppingListService {
   newIngridient = new Subject<Ingridient[]>();
+  startedEditing = new Subject<number>();
 
   private ingridients: Ingridient[] = [
     new Ingridient('Apples', 5),
