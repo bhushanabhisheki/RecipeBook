@@ -17,6 +17,10 @@ export class ShoppingListService {
     return this.ingridients.slice();
   }
 
+  getIngridient(index: number) {
+    return this.ingridients[index];
+  }
+
   addIngridient(ingridient: Ingridient): void {
     this.ingridients.push(ingridient);
     this.newIngridient.next(this.ingridients.slice());
