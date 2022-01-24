@@ -19,7 +19,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('f') slForm: NgForm | undefined;
   shoppingSubscription: Subscription | undefined;
   editMode = false;
-  editedItemIndex: number | undefined;
+  editedItemIndex: number = -1;
   editedItem: Ingridient | undefined;
 
   constructor(private shoppingService: ShoppingListService) {}
@@ -40,9 +40,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   addIngridient(form: NgForm) {
     const value = form.value;
-    this.shoppingService.addIngridient(
-      new Ingridient(value.name, value.amount)
-    );
+    const newIngridient = new Ingridient(value.name, value.amount);
+    if (this.editMode)
+      this.shoppingService.updateIngridient(
+        this.editedItemIndex,
+        newIngridient
+      );
+    else this.shoppingService.addIngridient(newIngridient);
   }
 
   ngOnDestroy() {
