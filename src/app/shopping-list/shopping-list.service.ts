@@ -32,7 +32,15 @@ export class ShoppingListService {
   }
 
   updateIngridient(index: number, ingridient: Ingridient): void {
+    console.log(ingridient);
+    console.log(this.ingridients[index]);
     this.ingridients[index] = ingridient;
+    this.newIngridient.next(this.ingridients.slice());
+  }
+
+  deleteIngridient(index: number): void {
+    this.ingridients.splice(index, 1);
+    console.log(this.ingridients);
     this.newIngridient.next(this.ingridients.slice());
   }
 }
