@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from 'src/app/recipe/recipe.service';
 
@@ -40,8 +40,11 @@ export class RecipeEditComponent implements OnInit {
       if (recipe['ingridients']) {
         for (let ingridient of recipe.ingridients) {
           const formGroup = new FormGroup({
-            name: new FormControl(ingridient.name),
-            amount: new FormControl(ingridient.amount),
+            name: new FormControl(ingridient.name, Validators.required),
+            amount: new FormControl(ingridient.amount, [
+              Validators.required,
+              Validators.pattern(/^[1-9]+[0-9]*$/),
+            ]),
           });
 
           recipeIngredients.push(formGroup);
@@ -50,9 +53,9 @@ export class RecipeEditComponent implements OnInit {
     }
 
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName),
-      imagePath: new FormControl(recipeImagepath),
-      description: new FormControl(recipeDescription),
+      name: new FormControl(recipeName, Validators.required),
+      imagePath: new FormControl(recipeImagepath, Validators.required),
+      description: new FormControl(recipeDescription, Validators.required),
       ingridients: recipeIngredients,
     });
   }
@@ -64,8 +67,11 @@ export class RecipeEditComponent implements OnInit {
 
   onAddIngridient() {
     const addformGroup = new FormGroup({
-      name: new FormControl(),
-      amount: new FormControl(),
+      name: new FormControl(null, Validators.required), // Validators.pattern(/^[1-9]+[0-9]*$/)
+      amount: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^[1-9]+[0-9]*$/),
+      ]),
     });
     (<FormArray>this.recipeForm?.get('ingridients'))?.controls.push(
       addformGroup
