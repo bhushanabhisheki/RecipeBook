@@ -10,7 +10,7 @@ import { RecipeService } from '../recipe.service';
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe | undefined;
-  id: number | undefined;
+  id!: number;
 
   constructor(
     private recipeService: RecipeService,
@@ -35,5 +35,10 @@ export class RecipeDetailComponent implements OnInit {
   addtoShoppingList(): void {
     if (this.recipe?.ingridients)
       this.recipeService.addIngridientToShoppingList(this.recipe.ingridients);
+  }
+
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['recipes']);
   }
 }

@@ -10,7 +10,7 @@
           >
             Save
           </button>
-          <button class="btn btn-danger">Cancel</button>
+          <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
         </div>
       </div>
       <div class="row">
@@ -38,13 +38,20 @@
               class="form-control"
               placeholder="Path to the image"
               formControlName="imagePath"
+              #imagePath
             />
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="border: 1px solid red">
         <div class="col-xs-12">
-          <img src="" alt="" class="img-responsive" />
+          <img
+            [src]="imagePath.value"
+            alt="fsadfsadf"
+            class="img-responsive"
+            height="400px"
+            width="400px"
+          />
         </div>
       </div>
       <br />
@@ -82,7 +89,13 @@
               />
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-danger">X</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="onDeleteIndigrident(i)"
+              >
+                X
+              </button>
             </div>
           </div>
           <hr />
